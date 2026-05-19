@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alquiran — Produtividade & Inovação</title>
+
+  <!-- Fontes -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Montserrat:wght@400;500;600;700;800;900&family=Gothic+A1:wght@900&display=swap" rel="stylesheet">
+
+  <!-- AOS -->
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+
+  <style>
+    /* ==========================================
+       CSS VARIABLES — DNA Visual zeetz.com.br
+    ========================================== */
+    :root {
+      --bg:         #080808;
+      --bg-2:       #0e0e0e;
+      --bg-card:    #141414;
+      --primary:    #8b2df5;
+      --primary-lt: #f8f2ff;
+      --accent:     #0f2ccf;
+      --lavanda:    #f1e5fe;
+      --text:       #ffffff;
+      --text-muted: rgba(255,255,255,0.55);
+      --border:     rgba(255,255,255,0.08);
+      --radius:     16px;
+      --radius-lg:  24px;
+      --container:  1200px;
+    }
+
+    /* ==========================================
+       RESET + BASE
+    ========================================== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    a { text-decoration: none; color: inherit; }
+    img { max-width: 100%; display: block; }
+
+    .container {
+      max-width: var(--container);
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+
+    /* ==========================================
+       NAVBAR
+    ========================================== */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 24px 0;
+      background: #ffffff;
+      border-bottom: 1px solid #e5e5e5;
+      transition: padding 0.3s ease;
+    }
+
+    nav.scrolled {
+      padding: 16px 0;
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 32px;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 1.8rem;
+      letter-spacing: -0.01em;
+      flex: 0 0 auto;
+      color: #000000;
+    }
+
+    .nav-logo-icon {
+      display: none;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      list-style: none;
+      flex: 1;
+      justify-content: center;
+    }
+
+    .nav-links a {
+      font-size: 0.9rem;
+      font-weight: 400;
+      color: #666666;
+      padding: 0;
+      border-radius: 0;
+      transition: color 0.2s;
+      letter-spacing: 0;
+      text-transform: none;
+    }
+
+    .nav-links a:hover {
+      color: #000000;
+      background: none;
+    }
+
+    .nav-social {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      flex: 0 0 auto;
+    }
+
+    .nav-social a {
+      width: auto;
+      height: auto;
+      border-radius: 0;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #666666;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .nav-social a:hover {
+      border-color: transparent;
+      color: #000000;
+      background: none;
+    }
+
+    /* ==========================================
+       HERO — Fullscreen Rooftop
+    ========================================== */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      padding-top: 100px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-bg-image {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      z-index: 1;
+      background-size: cover;
+      background-position: center center;
+      background-repeat: no-repeat;
+      filter: brightness(0.75) saturate(1.1);
+    }
+
+    .hero-bg-image::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(to bottom,
+          rgba(8,8,8,0.15) 0%,
+          rgba(8,8,8,0.05) 30%,
+          rgba(8,8,8,0.4) 70%,
+          rgba(8,8,8,0.85) 100%),
+        linear-gradient(to right,
+          rgba(139,45,245,0.25) 0%,
+          transparent 60%);
+    }
+
+    .hero-inner {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      max-width: 600px;
+    }
+
+    .hero-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #fff;
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.25);
+      padding: 6px 14px;
+      border-radius: 100px;
+      margin-bottom: 24px;
+    }
+
+    .hero-label::before {
+      content: '';
+      width: 6px; height: 6px;
+      background: #fff;
+      border-radius: 50%;
+    }
+
+    .hero-title {
+      font-family: 'Gothic A1', 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: clamp(2.8rem, 4vw, 3.8rem);
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      margin-bottom: 24px;
+      color: #fff;
+    }
+
+    .hero-title .highlight {
+      background: linear-gradient(135deg, #fff 0%, #e0e0e0 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-desc {
+      font-size: 1rem;
+      color: rgba(255,255,255,0.85);
+      line-height: 1.75;
+      margin-bottom: 40px;
+      max-width: 480px;
+    }
+
+    .hero-desc strong {
+      color: #fff;
+    }
+
+    .hero-ctas {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #ffffff;
+      color: #000;
+      font-weight: 600;
+      font-size: 0.88rem;
+      padding: 14px 28px;
+      border-radius: 12px;
+      letter-spacing: 0.02em;
+      transition: all 0.25s;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn-primary:hover {
+      background: #f0f0f0;
+      transform: translateY(-2px);
+      box-shadow: 0 12px 30px rgba(255,255,255,0.25);
+    }
+
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: transparent;
+      color: #fff;
+      font-weight: 500;
+      font-size: 0.88rem;
+      padding: 13px 28px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.4);
+      letter-spacing: 0.02em;
+      transition: all 0.25s;
+      cursor: pointer;
+    }
+
+    .btn-ghost:hover {
+      border-color: rgba(255,255,255,0.8);
+      background: rgba(255,255,255,0.1);
+    }
+
+    .hero-stats {
+      display: flex;
+      gap: 32px;
+      margin-top: 48px;
+      padding-top: 32px;
+      border-top: 1px solid rgba(255,255,255,0.2);
+    }
+
+    .stat-item strong {
+      display: block;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 1.6rem;
+      letter-spacing: -0.02em;
+      color: #fff;
+    }
+
+    .stat-item span {
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.7);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* Hero image — deprecated */
+    .hero-visual { display: none; }
+    .hero-img-wrap { display: none; }
+    .hero-img-bg { display: none; }
+    .hero-badge { display: none; }
+
+    /* ==========================================
+       SECTION LINKS / CARDS GRID
+    ========================================== */
+    .section-links {
+      padding: 100px 0;
+      position: relative;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 56px;
+    }
+
+    .section-tag {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--primary);
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+    }
+
+    .links-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+
+    .link-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 40px 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      transition: all 0.3s;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      min-height: 280px;
+      justify-content: space-between;
+    }
+
+    .link-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--primary), transparent);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .link-card:hover {
+      border-color: rgba(139,45,245,0.3);
+      background: #1a1a1a;
+      transform: translateY(-4px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+    }
+
+    .link-card:hover::before { opacity: 1; }
+
+    .link-card-icon {
+      width: 48px; height: 48px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+    }
+
+    .link-card h3 {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 0.95rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .link-card p {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      flex: 1;
+    }
+
+    .link-card-arrow {
+      width: 32px; height: 32px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      align-self: flex-end;
+      transition: all 0.2s;
+    }
+
+    .link-card:hover .link-card-arrow {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: #fff;
+    }
+
+    /* Cards com cores de fundo distintas */
+    .card-purple .link-card-icon { background: rgba(139,45,245,0.15); color: #bf6bff; }
+    .card-blue   .link-card-icon { background: rgba(15,44,207,0.15);  color: #6b8bff; }
+    .card-rose   .link-card-icon { background: rgba(229,92,94,0.15);  color: #ff8b8c; }
+    .card-orange .link-card-icon { background: rgba(253,167,127,0.15);color: #fda77f; }
+    .card-green  .link-card-icon { background: rgba(151,198,147,0.15);color: #97c693; }
+    .card-lavanda .link-card-icon { background: rgba(172,190,255,0.15);color: #acbeff; }
+
+    /* ==========================================
+       GALLERY — Notion Style
+    ========================================== */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+
+    .gallery-item {
+      position: relative;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      transition: all 0.3s;
+    }
+
+    .gallery-image {
+      width: 100%;
+      aspect-ratio: 16/10;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      border: 1px solid var(--border);
+      transition: all 0.3s;
+    }
+
+    .gallery-item:hover .gallery-image {
+      border-color: rgba(139,45,245,0.5);
+      box-shadow: 0 12px 32px rgba(139,45,245,0.15);
+      transform: translateY(-4px);
+    }
+
+    .gallery-badge {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.95);
+      border: 1px solid rgba(255,255,255,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      backdrop-filter: blur(10px);
+      transition: all 0.3s;
+    }
+
+    .gallery-item:hover .gallery-badge {
+      transform: scale(1.1);
+      background: rgba(255,255,255,1);
+    }
+
+    .gallery-title {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 600;
+      font-size: 0.95rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--text);
+      margin-top: 8px;
+    }
+
+    /* ==========================================
+       SOBRE — Zeetz Style
+    ========================================== */
+    .sobre {
+      padding: 100px 0;
+      background: #f8f7f3;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .sobre-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .sobre-visual {
+      position: relative;
+    }
+
+    .sobre-img {
+      width: 100%;
+      aspect-ratio: 3/4;
+      object-fit: cover;
+      border-radius: 0;
+      filter: grayscale(100%);
+    }
+
+    .sobre-card-float {
+      display: none;
+    }
+
+    .sobre-content .section-tag {
+      text-align: left;
+      display: block;
+      color: #999;
+      font-size: 0.8rem;
+      text-transform: lowercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 16px;
+    }
+
+    .sobre-content .section-title {
+      text-align: left;
+      margin-bottom: 32px;
+      color: #000;
+      font-size: 2.2rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .sobre-content p {
+      color: #555;
+      line-height: 1.9;
+      margin-bottom: 16px;
+      font-size: 0.95rem;
+      text-align: justify;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .sobre-content p strong {
+      color: #000;
+      font-weight: 600;
+    }
+
+    .sobre-tags {
+      display: none;
+    }
+
+    .tag {
+      display: none;
+    }
+
+    /* ==========================================
+       CONTATO
+    ========================================== */
+    .contato {
+      padding: 100px 0;
+    }
+
+    .contato-inner {
+      max-width: 640px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .contato .section-title { margin-bottom: 12px; }
+
+    .contato-sub {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-bottom: 48px;
+    }
+
+    .form-group {
+      margin-bottom: 16px;
+      text-align: left;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 8px;
+    }
+
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px 18px;
+      color: var(--text);
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.9rem;
+      outline: none;
+      transition: border-color 0.2s;
+      resize: none;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      border-color: var(--primary);
+    }
+
+    .form-group textarea { height: 130px; }
+
+    .contato-form .btn-primary {
+      width: 100%;
+      justify-content: center;
+      margin-top: 8px;
+      font-size: 0.9rem;
+      padding: 16px;
+    }
+
+    /* ==========================================
+       FOOTER
+    ========================================== */
+    footer {
+      padding: 40px 0;
+      border-top: 1px solid var(--border);
+      background: var(--bg-2);
+    }
+
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .footer-logo {
+      font-family: 'Gothic A1', 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 1.1rem;
+      letter-spacing: -0.02em;
+    }
+
+    .footer-copy {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    .footer-social {
+      display: flex;
+      gap: 10px;
+    }
+
+    .footer-social a {
+      width: 34px; height: 34px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-muted);
+      font-size: 0.72rem;
+      transition: all 0.2s;
+    }
+
+    .footer-social a:hover {
+      color: var(--primary);
+      border-color: var(--primary);
+    }
+
+    /* ==========================================
+       WHATSAPP WIDGET
+    ========================================== */
+    .whatsapp-widget {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      z-index: 999;
+    }
+
+    .whatsapp-btn {
+      width: 56px; height: 56px;
+      background: #25D366;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 8px 24px rgba(37,211,102,0.35);
+      transition: transform 0.2s;
+      position: relative;
+    }
+
+    .whatsapp-btn:hover { transform: scale(1.1); }
+
+    .whatsapp-btn svg { width: 28px; height: 28px; fill: #fff; }
+
+    .whatsapp-pulse {
+      position: absolute;
+      inset: -4px;
+      border-radius: 50%;
+      border: 2px solid rgba(37,211,102,0.4);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%   { transform: scale(1);   opacity: 1; }
+      70%  { transform: scale(1.4); opacity: 0; }
+      100% { transform: scale(1.4); opacity: 0; }
+    }
+
+    /* ==========================================
+       RESPONSIVO
+    ========================================== */
+    @media (max-width: 1024px) {
+      .links-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 900px) {
+      .hero { padding-top: 80px; }
+      .hero-inner { max-width: 100%; }
+      .sobre-inner { grid-template-columns: 1fr; gap: 40px; }
+      .footer-inner { flex-direction: column; text-align: center; }
+    }
+
+    @media (max-width: 600px) {
+      .container { padding: 0 20px; }
+      .nav-links { display: none; }
+      .links-grid { grid-template-columns: 1fr; }
+      .hero-stats { gap: 20px; }
+      .hero-ctas { flex-direction: column; }
+      .btn-primary, .btn-ghost { width: 100%; justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==========================================
+       NAVBAR
+  ========================================== -->
+  <nav id="navbar">
+    <div class="container">
+      <div class="nav-inner">
+
+        <!-- Logo -->
+        <a href="#" class="nav-logo">
+          alquiran.
+        </a>
+
+        <!-- Links -->
+        <ul class="nav-links">
+          <li><a href="#links">Presets</a></li>
+          <li><a href="#links">Notion</a></li>
+          <li><a href="#links">Parceiros</a></li>
+          <li><a href="#links">Mais</a></li>
+        </ul>
+
+        <!-- Social -->
+        <div class="nav-social">
+          <a href="#" title="YouTube">YT</a>
+          <a href="#" title="Instagram">IG</a>
+          <a href="#" title="TikTok">TK</a>
+        </div>
+
+      </div>
+    </div>
+  </nav>
+
+  <!-- ==========================================
+       HERO — Rooftop Lifestyle
+  ========================================== -->
+  <section class="hero" id="home">
+    <div class="hero-bg-image" style="background-image: url('FOTOS/jetski-hero.jpeg'); background-position: center center; background-size: cover; background-attachment: scroll;"></div>
+  </section>
+
+  <!-- ==========================================
+       LINKS / PRODUTOS
+  ========================================== -->
+  <section class="section-links" id="links">
+    <div class="container">
+      <div class="section-header" data-aos="fade-up">
+        <span class="section-tag">Meu Ecossistema</span>
+        <h2 class="section-title">Ferramentas & Recursos</h2>
+      </div>
+
+      <div class="gallery-grid">
+
+        <!-- Galeria Item 1 -->
+        <a href="#" class="gallery-item" data-aos="fade-up" data-aos-delay="0">
+          <div class="gallery-image" style="background: #111; display:flex; align-items:center; justify-content:center;">
+            <img src="FOTOS/notion-icone.png" style="width:80px;height:80px;object-fit:contain;">
+          </div>
+          <h3 class="gallery-title">Notion Template</h3>
+        </a>
+
+        <!-- Galeria Item 2 -->
+        <a href="#" class="gallery-item" data-aos="fade-up" data-aos-delay="80">
+          <div class="gallery-image" style="background-image: url('FOTOS/IMAGEM TESTE 10.jpeg'); background-size: cover; background-position: center;"></div>
+          <div class="gallery-badge">📅</div>
+          <h3 class="gallery-title">Planner 30 Dias</h3>
+        </a>
+
+        <!-- Galeria Item 3 -->
+        <a href="#contato" class="gallery-item" data-aos="fade-up" data-aos-delay="160">
+          <div class="gallery-image" style="background: linear-gradient(135deg, rgba(139,45,245,0.3), rgba(15,44,207,0.2));"></div>
+          <div class="gallery-badge" style="background: var(--primary); color: #fff;">💼</div>
+          <h3 class="gallery-title">Parceria</h3>
+        </a>
+
+        <!-- Galeria Item 4 -->
+        <a href="#" class="gallery-item" data-aos="fade-up" data-aos-delay="240">
+          <div class="gallery-image" style="background: linear-gradient(135deg, rgba(172,190,255,0.3), rgba(139,45,245,0.2));"></div>
+          <div class="gallery-badge">▶️</div>
+          <h3 class="gallery-title">YouTube</h3>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================
+       SOBRE — Zeetz Style Biography
+  ========================================== -->
+  <section class="sobre" id="sobre">
+    <div class="container">
+      <div class="sobre-inner">
+
+        <!-- Conteúdo -->
+        <div class="sobre-content" data-aos="fade-right" data-aos-duration="600">
+          <span class="section-tag">Ecossistema de Produtividade</span>
+          <h2 class="section-title">ALQUIRAN</h2>
+
+          <p>
+            Alquiran, conhecido como <strong>Alqui</strong>, é criador de conteúdo digital,
+            designer e desenvolvedor web com foco em <strong>lifestyle, produtividade e impacto real</strong>.
+          </p>
+
+          <p>
+            Natural de <strong>Maceió-AL</strong>, começou sua jornada unindo design,
+            edição de vídeo e criação de sites com uma visão clara: usar a internet
+            como ferramenta de <strong>transformação</strong>.
+          </p>
+
+          <p>
+            Com o tempo, seu conteúdo no Instagram e TikTok passou a inspirar pessoas
+            a organizarem melhor suas vidas, seus projetos e seus objetivos.
+          </p>
+
+          <p>
+            Hoje, aos <strong>28 anos</strong>, Alquiran segue firme no seu propósito:
+            <strong>impactar vidas através do conteúdo digital</strong>, construindo uma
+            comunidade que busca crescer junto.
+          </p>
+
+          <div class="sobre-tags">
+            <span class="tag">Lifestyle</span>
+            <span class="tag">Fitness</span>
+          </div>
+        </div>
+
+        <!-- Visual -->
+        <div class="sobre-visual" data-aos="fade-left" data-aos-duration="600">
+          <img
+            class="sobre-img"
+            src="FOTOS/IMAGEM TESTE 10.jpeg"
+            alt="Alquiran"
+          >
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================
+       CONTATO
+  ========================================== -->
+  <section class="contato" id="contato">
+    <div class="container">
+      <div class="contato-inner" data-aos="fade-up">
+        <span class="section-tag">Entre em contato</span>
+        <h2 class="section-title">Vamos Colaborar?</h2>
+        <p class="contato-sub">
+          Interessado em parcerias, dúvidas ou conversas sobre produtividade? Deixe uma mensagem abaixo.
+        </p>
+
+        <form class="contato-form" onsubmit="handleForm(event)">
+          <div class="form-group">
+            <label>Nome completo</label>
+            <input type="text" placeholder="Seu nome" required>
+          </div>
+          <div class="form-group">
+            <label>Email</label>
+            <input type="email" placeholder="seu@email.com" required>
+          </div>
+          <div class="form-group">
+            <label>Mensagem</label>
+            <textarea placeholder="Descreva sua proposta ou dúvida..."></textarea>
+          </div>
+          <button type="submit" class="btn-primary">
+            Enviar mensagem
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 2L11 13M22 2L15 22l-4-9-9-4 20-7z"/></svg>
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================
+       FOOTER
+  ========================================== -->
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-logo">alquiran.</div>
+        <p class="footer-copy">© 2026 by alquiran. Todos os direitos reservados.</p>
+        <div class="footer-social">
+          <a href="#" title="YouTube">YT</a>
+          <a href="#" title="Instagram">IG</a>
+          <a href="#" title="TikTok">TK</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+
+  <!-- AOS -->
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+
+  <script>
+    /* Navbar scroll */
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 40);
+    });
+
+    /* AOS init */
+    AOS.init({
+      once: true,
+      easing: 'ease-out-cubic',
+      offset: 60
+    });
+
+    /* Parallax effect */
+    const heroBg = document.querySelector('.hero-bg-image');
+    window.addEventListener('scroll', () => {
+      const scrollY = window.scrollY;
+      if (scrollY < window.innerHeight) {
+        heroBg.style.transform = `translateY(${scrollY * 0.3}px)`;
+      }
+    });
+
+    /* Form submit */
+    function handleForm(e) {
+      e.preventDefault();
+      const btn = e.target.querySelector('button');
+      btn.textContent = 'Mensagem enviada! ✓';
+      btn.style.background = '#22c55e';
+      setTimeout(() => {
+        btn.innerHTML = 'Enviar mensagem <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 2L11 13M22 2L15 22l-4-9-9-4 20-7z"/></svg>';
+        btn.style.background = '';
+        e.target.reset();
+      }, 3000);
+    }
+  </script>
+
+</body>
+</html>
