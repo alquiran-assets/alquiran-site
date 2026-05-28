@@ -719,67 +719,143 @@
     /* ==========================================
        CONTATO
     ========================================== */
-    .contato {
+    .presets {
       padding: 100px 0;
     }
 
-    .contato-inner {
+    .presets-head {
       max-width: 640px;
-      margin: 0 auto;
+      margin: 0 auto 48px;
       text-align: center;
     }
 
-    .contato .section-title { margin-bottom: 12px; }
+    .presets .section-title { margin-bottom: 12px; }
 
-    .contato-sub {
+    .presets-sub {
       color: var(--text-muted);
       font-size: 0.95rem;
-      margin-bottom: 48px;
     }
 
-    .form-group {
-      margin-bottom: 16px;
-      text-align: left;
+    /* Slider antes/depois */
+    .ba-slider {
+      position: relative;
+      max-width: 760px;
+      margin: 0 auto;
+      aspect-ratio: 4 / 5;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      user-select: none;
+      cursor: ew-resize;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.55);
+      border: 1px solid var(--border);
     }
 
-    .form-group label {
-      display: block;
-      font-size: 0.78rem;
-      font-weight: 600;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      margin-bottom: 8px;
-    }
-
-    .form-group input,
-    .form-group textarea {
+    .ba-img {
+      position: absolute;
+      inset: 0;
       width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      pointer-events: none;
+    }
+
+    /* "Antes" = original sem tratamento (filtro simulando RAW chapado).
+       Troque a imagem data-before pela versão real quando montar o preset. */
+    .ba-before { filter: saturate(0.55) contrast(0.9) brightness(1.05); }
+
+    .ba-before-wrap {
+      position: absolute;
+      inset: 0;
+      clip-path: inset(0 50% 0 0);
+    }
+
+    .ba-divider {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      width: 2px;
+      background: rgba(255,255,255,0.9);
+      transform: translateX(-1px);
+      z-index: 3;
+      pointer-events: none;
+    }
+
+    .ba-label {
+      position: absolute;
+      top: 16px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      padding: 6px 12px;
+      border-radius: 99px;
+      background: rgba(0,0,0,0.55);
+      backdrop-filter: blur(6px);
+      color: #fff;
+      z-index: 3;
+    }
+    .ba-label-before { left: 16px; }
+    .ba-label-after  { right: 16px; }
+
+    .ba-handle {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 44px;
+      height: 44px;
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      background: #fff;
+      color: #111;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 18px rgba(0,0,0,0.4);
+      z-index: 4;
+      pointer-events: none;
+    }
+
+    /* Seletor de presets */
+    .preset-picker {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 32px;
+    }
+
+    .preset-chip {
       background: var(--bg-card);
       border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 14px 18px;
-      color: var(--text);
+      color: var(--text-muted);
       font-family: 'Poppins', sans-serif;
-      font-size: 0.9rem;
-      outline: none;
-      transition: border-color 0.2s;
-      resize: none;
+      font-size: 0.85rem;
+      font-weight: 600;
+      padding: 10px 20px;
+      border-radius: 99px;
+      cursor: pointer;
+      transition: all 0.2s;
     }
-
-    .form-group input:focus,
-    .form-group textarea:focus {
+    .preset-chip:hover { color: var(--text); border-color: rgba(255,255,255,0.25); }
+    .preset-chip.is-active {
+      background: var(--primary);
       border-color: var(--primary);
+      color: #fff;
     }
 
-    .form-group textarea { height: 130px; }
-
-    .contato-form .btn-primary {
-      width: 100%;
-      justify-content: center;
-      margin-top: 8px;
+    .presets-cta {
+      text-align: center;
+      margin-top: 36px;
+      color: var(--text-muted);
       font-size: 0.9rem;
-      padding: 16px;
+    }
+    .presets-cta a {
+      color: var(--text);
+      font-weight: 600;
+      text-decoration: none;
+      border-bottom: 1px solid var(--primary);
+      padding-bottom: 2px;
     }
 
     /* ==========================================
@@ -1017,7 +1093,6 @@
 
         <!-- Conteúdo -->
         <div class="sobre-content" data-aos="fade-right" data-aos-duration="600">
-          <span class="section-tag">Ecossistema de Produtividade</span>
           <h2 class="section-title">ALQUIRAN</h2>
 
           <p>
@@ -1064,34 +1139,42 @@
   <!-- ==========================================
        CONTATO
   ========================================== -->
-  <section class="contato" id="contato">
+  <section class="presets" id="presets">
     <div class="container">
-      <div class="contato-inner" data-aos="fade-up">
-        <span class="section-tag">Entre em contato</span>
-        <h2 class="section-title">Vamos Colaborar?</h2>
-        <p class="contato-sub">
-          Interessado em parcerias, dúvidas ou conversas sobre produtividade? Deixe uma mensagem abaixo.
+      <div class="presets-head" data-aos="fade-up">
+        <span class="section-tag">Lightroom Presets</span>
+        <h2 class="section-title">Antes &amp; Depois</h2>
+        <p class="presets-sub">
+          Arraste para comparar. Meus presets transformam fotos comuns em imagens com a mesma identidade visual do meu feed.
         </p>
-
-        <form class="contato-form" onsubmit="handleForm(event)">
-          <div class="form-group">
-            <label>Nome completo</label>
-            <input type="text" placeholder="Seu nome" required>
-          </div>
-          <div class="form-group">
-            <label>Email</label>
-            <input type="email" placeholder="seu@email.com" required>
-          </div>
-          <div class="form-group">
-            <label>Mensagem</label>
-            <textarea placeholder="Descreva sua proposta ou dúvida..."></textarea>
-          </div>
-          <button type="submit" class="btn-primary">
-            Enviar mensagem
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 2L11 13M22 2L15 22l-4-9-9-4 20-7z"/></svg>
-          </button>
-        </form>
       </div>
+
+      <!-- Slider de comparação -->
+      <div class="ba-slider" id="baSlider" data-aos="zoom-in">
+        <!-- DEPOIS (camada de baixo, foto editada) -->
+        <img class="ba-img ba-after" id="baAfter" src="FOTOS/IMG_4449.JPG.jpeg" alt="Depois do preset">
+        <!-- ANTES (camada de cima, foto original) -->
+        <div class="ba-before-wrap" id="baBeforeWrap">
+          <img class="ba-img ba-before" id="baBefore" src="FOTOS/IMG_4449.JPG.jpeg" alt="Antes do preset">
+        </div>
+        <span class="ba-label ba-label-before">ANTES</span>
+        <span class="ba-label ba-label-after">DEPOIS</span>
+        <div class="ba-divider" id="baDivider"></div>
+        <div class="ba-handle" id="baHandle">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/><path d="M9 6l6 6-6 6" transform="translate(0,0)"/></svg>
+        </div>
+      </div>
+
+      <!-- Seletor de presets -->
+      <div class="preset-picker" data-aos="fade-up">
+        <button class="preset-chip is-active" data-before="FOTOS/IMG_4449.JPG.jpeg" data-after="FOTOS/IMG_4449.JPG.jpeg">Moody Film</button>
+        <button class="preset-chip" data-before="FOTOS/orla-hero.jpeg" data-after="FOTOS/orla-hero.jpeg">Golden Warm</button>
+        <button class="preset-chip" data-before="FOTOS/jetski-hero.jpeg" data-after="FOTOS/jetski-hero.jpeg">Cinematic Teal</button>
+      </div>
+
+      <p class="presets-cta" data-aos="fade-up">
+        Em breve disponíveis para download. <a href="#">Quero ser avisado &rarr;</a>
+      </p>
     </div>
   </section>
 
@@ -1139,18 +1222,48 @@
       }
     });
 
-    /* Form submit */
-    function handleForm(e) {
-      e.preventDefault();
-      const btn = e.target.querySelector('button');
-      btn.textContent = 'Mensagem enviada! ✓';
-      btn.style.background = '#22c55e';
-      setTimeout(() => {
-        btn.innerHTML = 'Enviar mensagem <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 2L11 13M22 2L15 22l-4-9-9-4 20-7z"/></svg>';
-        btn.style.background = '';
-        e.target.reset();
-      }, 3000);
-    }
+    /* Slider Antes/Depois */
+    (function () {
+      const slider     = document.getElementById('baSlider');
+      const beforeWrap = document.getElementById('baBeforeWrap');
+      const divider    = document.getElementById('baDivider');
+      const handle     = document.getElementById('baHandle');
+      const beforeImg  = document.getElementById('baBefore');
+      const afterImg   = document.getElementById('baAfter');
+      let dragging = false;
+
+      function setPos(pct) {
+        pct = Math.max(0, Math.min(100, pct));
+        beforeWrap.style.clipPath = `inset(0 ${100 - pct}% 0 0)`;
+        divider.style.left = pct + '%';
+        handle.style.left  = pct + '%';
+      }
+
+      function moveFromEvent(e) {
+        const rect = slider.getBoundingClientRect();
+        const x = (e.touches ? e.touches[0].clientX : e.clientX) - rect.left;
+        setPos((x / rect.width) * 100);
+      }
+
+      slider.addEventListener('mousedown', (e) => { dragging = true; moveFromEvent(e); });
+      window.addEventListener('mousemove', (e) => { if (dragging) moveFromEvent(e); });
+      window.addEventListener('mouseup',   () => { dragging = false; });
+      slider.addEventListener('touchstart', moveFromEvent, { passive: true });
+      slider.addEventListener('touchmove',  moveFromEvent, { passive: true });
+
+      setPos(50);
+
+      /* Troca de preset */
+      document.querySelectorAll('.preset-chip').forEach((chip) => {
+        chip.addEventListener('click', () => {
+          document.querySelector('.preset-chip.is-active')?.classList.remove('is-active');
+          chip.classList.add('is-active');
+          beforeImg.src = chip.dataset.before;
+          afterImg.src  = chip.dataset.after;
+          setPos(50);
+        });
+      });
+    })();
   </script>
 
 </body>
