@@ -736,22 +736,25 @@
       font-size: 0.95rem;
     }
 
-    /* Galeria de quadros — bento editorial */
-    .preset-gallery {
+    /* Layout principal: slider esquerda + grade direita */
+    .presets-layout {
       display: grid;
-      grid-template-columns: repeat(12, 1fr);
-      gap: 8px;
+      grid-template-columns: 58fr 42fr;
+      gap: 10px;
+      align-items: start;
     }
 
-    .pg-item {
+    /* Slider de comparação */
+    .ba-slider {
       position: relative;
+      aspect-ratio: 4 / 5;
       overflow: hidden;
-      border-radius: 10px;
-      border: 1px solid rgba(255,255,255,0.07);
-      cursor: crosshair;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.08);
+      cursor: ew-resize;
       user-select: none;
     }
-    .pg-item img {
+    .ba-slider img {
       position: absolute;
       inset: 0;
       width: 100%;
@@ -760,62 +763,84 @@
       display: block;
       pointer-events: none;
     }
-
-    /* Proporções bento */
-    .pg-item:nth-child(1)  { grid-column: span 6; aspect-ratio: 4/5; }
-    .pg-item:nth-child(2)  { grid-column: span 3; aspect-ratio: 4/5; }
-    .pg-item:nth-child(3)  { grid-column: span 3; aspect-ratio: 4/5; }
-    .pg-item:nth-child(4)  { grid-column: span 3; aspect-ratio: 4/5; }
-    .pg-item:nth-child(5)  { grid-column: span 3; aspect-ratio: 4/5; }
-    .pg-item:nth-child(6)  { grid-column: span 6; aspect-ratio: 4/5; }
-    .pg-item:nth-child(7)  { grid-column: span 4; aspect-ratio: 4/3; }
-    .pg-item:nth-child(8)  { grid-column: span 4; aspect-ratio: 4/3; }
-    .pg-item:nth-child(9)  { grid-column: span 4; aspect-ratio: 4/3; }
-    .pg-item:nth-child(10) { grid-column: span 12; aspect-ratio: 21/7; }
-
-    /* Camada "antes" (filtro simulando foto crua) */
-    .pg-before-wrap {
+    .ba-before-wrap {
       position: absolute;
       inset: 0;
-      clip-path: inset(0 100% 0 0);
+      clip-path: inset(0 50% 0 0);
     }
-    .pg-before-wrap img {
+    .ba-before-wrap img {
       filter: saturate(0.38) contrast(0.82) brightness(1.1);
     }
-
-    /* Linha divisória */
-    .pg-div {
+    .ba-div {
       position: absolute;
       top: 0; bottom: 0;
-      left: 0;
-      width: 1px;
-      background: rgba(255,255,255,0.75);
+      left: 50%;
+      width: 1.5px;
+      background: rgba(255,255,255,0.85);
       z-index: 3;
       pointer-events: none;
-      opacity: 0;
-      transition: opacity 0.15s;
+      transform: translateX(-50%);
     }
-
-    /* Labels ANTES / DEPOIS */
-    .pg-lbl {
+    .ba-handle {
       position: absolute;
-      top: 10px;
-      font-size: 0.58rem;
-      font-weight: 700;
-      letter-spacing: 0.14em;
-      padding: 3px 9px;
-      border-radius: 99px;
-      background: rgba(5,5,5,0.65);
-      color: rgba(255,255,255,0.9);
+      top: 50%;
+      left: 50%;
+      width: 40px; height: 40px;
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      background: #fff;
+      color: #111;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.5);
       z-index: 4;
       pointer-events: none;
-      opacity: 0;
-      transition: opacity 0.18s;
     }
-    .pg-lbl-b { left: 10px; }
-    .pg-lbl-a { right: 10px; }
-    .pg-item:hover .pg-lbl,
-    .pg-item:hover .pg-div { opacity: 1; }
+    .ba-lbl {
+      position: absolute;
+      top: 14px;
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      padding: 4px 10px;
+      border-radius: 99px;
+      background: rgba(5,5,5,0.6);
+      color: rgba(255,255,255,0.92);
+      z-index: 4;
+      pointer-events: none;
+    }
+    .ba-lbl-b { left: 14px; }
+    .ba-lbl-a { right: 14px; }
+
+    /* Grade de miniaturas */
+    .thumb-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 6px;
+    }
+    .thumb {
+      position: relative;
+      aspect-ratio: 3 / 2;
+      overflow: hidden;
+      border-radius: 8px;
+      border: 2px solid transparent;
+      cursor: pointer;
+      padding: 0;
+      background: none;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .thumb img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      pointer-events: none;
+    }
+    .thumb:hover  { border-color: rgba(255,255,255,0.4); transform: scale(1.02); }
+    .thumb.is-active { border-color: #ffffff; }
 
     .presets-cta {
       text-align: center;
@@ -1120,77 +1145,41 @@
         <p class="presets-sub">Passe o mouse em cada quadro para ver a transformação do preset.</p>
       </div>
 
-      <!-- Galeria bento de quadros -->
-      <div class="preset-gallery" data-aos="fade-up" data-aos-delay="80">
+      <!-- Layout: slider esquerda + miniaturas direita -->
+      <div class="presets-layout" data-aos="fade-up" data-aos-delay="80">
 
-        <div class="pg-item">
-          <img src="FOTOS/presets/1b9677b2-d430-44a7-ad56-3c8ef732b3d4.jfif" alt="Preset depois">
-          <div class="pg-before-wrap"><img src="FOTOS/presets/1b9677b2-d430-44a7-ad56-3c8ef732b3d4.jfif" alt="Preset antes"></div>
-          <div class="pg-div"></div>
-          <span class="pg-lbl pg-lbl-b">ANTES</span><span class="pg-lbl pg-lbl-a">DEPOIS</span>
+        <!-- Esquerda: slider de comparação -->
+        <div class="presets-left">
+          <div class="ba-slider" id="baSlider">
+            <img id="baAfter" src="FOTOS/presets/1b9677b2-d430-44a7-ad56-3c8ef732b3d4.jfif" alt="Depois">
+            <div class="ba-before-wrap" id="baBeforeWrap">
+              <img id="baBefore" src="FOTOS/presets/1b9677b2-d430-44a7-ad56-3c8ef732b3d4.jfif" alt="Antes">
+            </div>
+            <div class="ba-div" id="baDivider"></div>
+            <span class="ba-lbl ba-lbl-b">ANTES</span>
+            <span class="ba-lbl ba-lbl-a">DEPOIS</span>
+            <div class="ba-handle" id="baHandle">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M15 18l-6-6 6-6M9 6l6 6-6 6"/>
+              </svg>
+            </div>
+          </div>
         </div>
 
-        <div class="pg-item">
-          <img src="FOTOS/presets/4bc51b0c-89e5-4903-b5b8-da1fd14e0898.jfif" alt="Preset depois">
-          <div class="pg-before-wrap"><img src="FOTOS/presets/4bc51b0c-89e5-4903-b5b8-da1fd14e0898.jfif" alt="Preset antes"></div>
-          <div class="pg-div"></div>
-          <span class="pg-lbl pg-lbl-b">ANTES</span><span class="pg-lbl pg-lbl-a">DEPOIS</span>
-        </div>
-
-        <div class="pg-item">
-          <img src="FOTOS/presets/372f5827-bfaa-4117-a949-73b9f343981d.jfif" alt="Preset depois">
-          <div class="pg-before-wrap"><img src="FOTOS/presets/372f5827-bfaa-4117-a949-73b9f343981d.jfif" alt="Preset antes"></div>
-          <div class="pg-div"></div>
-          <span class="pg-lbl pg-lbl-b">ANTES</span><span class="pg-lbl pg-lbl-a">DEPOIS</span>
-        </div>
-
-        <div class="pg-item">
-          <img src="FOTOS/presets/46811f15-c619-4b6a-aa64-dbb46137b95c.jfif" alt="Preset depois">
-          <div class="pg-before-wrap"><img src="FOTOS/presets/46811f15-c619-4b6a-aa64-dbb46137b95c.jfif" alt="Preset antes"></div>
-          <div class="pg-div"></div>
-          <span class="pg-lbl pg-lbl-b">ANTES</span><span class="pg-lbl pg-lbl-a">DEPOIS</span>
-        </div>
-
-        <div class="pg-item">
-          <img src="FOTOS/presets/a260d66f-4d4a-483b-bffd-52ff6ff752a9.jfif" alt="Preset depois">
-          <div class="pg-before-wrap"><img src="FOTOS/presets/a260d66f-4d4a-483b-bffd-52ff6ff752a9.jfif" alt="Preset antes"></div>
-          <div class="pg-div"></div>
-          <span class="pg-lbl pg-lbl-b">ANTES</span><span class="pg-lbl pg-lbl-a">DEPOIS</span>
-        </div>
-
-        <div class="pg-item">
-          <img src="FOTOS/presets/ad16aa49-5761-461c-82f9-29fc66007e44.jfif" alt="Preset depois">
-          <div class="pg-before-wrap"><img src="FOTOS/presets/ad16aa49-5761-461c-82f9-29fc66007e44.jfif" alt="Preset antes"></div>
-          <div class="pg-div"></div>
-          <span class="pg-lbl pg-lbl-b">ANTES</span><span class="pg-lbl pg-lbl-a">DEPOIS</span>
-        </div>
-
-        <div class="pg-item">
-          <img src="FOTOS/presets/c6ccf4ab-69b7-493a-9e23-76752e85aebf.jfif" alt="Preset depois">
-          <div class="pg-before-wrap"><img src="FOTOS/presets/c6ccf4ab-69b7-493a-9e23-76752e85aebf.jfif" alt="Preset antes"></div>
-          <div class="pg-div"></div>
-          <span class="pg-lbl pg-lbl-b">ANTES</span><span class="pg-lbl pg-lbl-a">DEPOIS</span>
-        </div>
-
-        <div class="pg-item">
-          <img src="FOTOS/presets/ef1f46b9-779c-4047-a151-068dfc9fb07c.jfif" alt="Preset depois">
-          <div class="pg-before-wrap"><img src="FOTOS/presets/ef1f46b9-779c-4047-a151-068dfc9fb07c.jfif" alt="Preset antes"></div>
-          <div class="pg-div"></div>
-          <span class="pg-lbl pg-lbl-b">ANTES</span><span class="pg-lbl pg-lbl-a">DEPOIS</span>
-        </div>
-
-        <div class="pg-item">
-          <img src="FOTOS/presets/efd8bea9-2b9e-4452-99e9-9b6e00c4e67f.jfif" alt="Preset depois">
-          <div class="pg-before-wrap"><img src="FOTOS/presets/efd8bea9-2b9e-4452-99e9-9b6e00c4e67f.jfif" alt="Preset antes"></div>
-          <div class="pg-div"></div>
-          <span class="pg-lbl pg-lbl-b">ANTES</span><span class="pg-lbl pg-lbl-a">DEPOIS</span>
-        </div>
-
-        <div class="pg-item">
-          <img src="FOTOS/presets/6f82479b-bec5-4c82-b05d-0c29c704cead.jfif" alt="Preset depois">
-          <div class="pg-before-wrap"><img src="FOTOS/presets/6f82479b-bec5-4c82-b05d-0c29c704cead.jfif" alt="Preset antes"></div>
-          <div class="pg-div"></div>
-          <span class="pg-lbl pg-lbl-b">ANTES</span><span class="pg-lbl pg-lbl-a">DEPOIS</span>
+        <!-- Direita: grade de miniaturas -->
+        <div class="presets-right">
+          <div class="thumb-grid">
+            <button class="thumb is-active" data-img="FOTOS/presets/1b9677b2-d430-44a7-ad56-3c8ef732b3d4.jfif"><img src="FOTOS/presets/1b9677b2-d430-44a7-ad56-3c8ef732b3d4.jfif" alt=""></button>
+            <button class="thumb" data-img="FOTOS/presets/4bc51b0c-89e5-4903-b5b8-da1fd14e0898.jfif"><img src="FOTOS/presets/4bc51b0c-89e5-4903-b5b8-da1fd14e0898.jfif" alt=""></button>
+            <button class="thumb" data-img="FOTOS/presets/372f5827-bfaa-4117-a949-73b9f343981d.jfif"><img src="FOTOS/presets/372f5827-bfaa-4117-a949-73b9f343981d.jfif" alt=""></button>
+            <button class="thumb" data-img="FOTOS/presets/46811f15-c619-4b6a-aa64-dbb46137b95c.jfif"><img src="FOTOS/presets/46811f15-c619-4b6a-aa64-dbb46137b95c.jfif" alt=""></button>
+            <button class="thumb" data-img="FOTOS/presets/a260d66f-4d4a-483b-bffd-52ff6ff752a9.jfif"><img src="FOTOS/presets/a260d66f-4d4a-483b-bffd-52ff6ff752a9.jfif" alt=""></button>
+            <button class="thumb" data-img="FOTOS/presets/ad16aa49-5761-461c-82f9-29fc66007e44.jfif"><img src="FOTOS/presets/ad16aa49-5761-461c-82f9-29fc66007e44.jfif" alt=""></button>
+            <button class="thumb" data-img="FOTOS/presets/c6ccf4ab-69b7-493a-9e23-76752e85aebf.jfif"><img src="FOTOS/presets/c6ccf4ab-69b7-493a-9e23-76752e85aebf.jfif" alt=""></button>
+            <button class="thumb" data-img="FOTOS/presets/ef1f46b9-779c-4047-a151-068dfc9fb07c.jfif"><img src="FOTOS/presets/ef1f46b9-779c-4047-a151-068dfc9fb07c.jfif" alt=""></button>
+            <button class="thumb" data-img="FOTOS/presets/efd8bea9-2b9e-4452-99e9-9b6e00c4e67f.jfif"><img src="FOTOS/presets/efd8bea9-2b9e-4452-99e9-9b6e00c4e67f.jfif" alt=""></button>
+            <button class="thumb" data-img="FOTOS/presets/6f82479b-bec5-4c82-b05d-0c29c704cead.jfif"><img src="FOTOS/presets/6f82479b-bec5-4c82-b05d-0c29c704cead.jfif" alt=""></button>
+          </div>
         </div>
 
       </div>
@@ -1245,30 +1234,49 @@
       }
     });
 
-    /* Hover antes/depois por quadro */
-    document.querySelectorAll('.pg-item').forEach(item => {
-      const wrap = item.querySelector('.pg-before-wrap');
-      const div  = item.querySelector('.pg-div');
+    /* Slider antes/depois */
+    (function () {
+      const slider   = document.getElementById('baSlider');
+      const wrap     = document.getElementById('baBeforeWrap');
+      const divider  = document.getElementById('baDivider');
+      const handle   = document.getElementById('baHandle');
+      const afterImg = document.getElementById('baAfter');
+      const beforeImg = document.getElementById('baBefore');
+      let dragging = false;
 
-      item.addEventListener('mousemove', e => {
-        const rect = item.getBoundingClientRect();
-        const pct  = Math.max(0, Math.min(100, ((e.clientX - rect.left) / rect.width) * 100));
+      function setPos(pct) {
+        pct = Math.max(0, Math.min(100, pct));
         wrap.style.clipPath = `inset(0 ${100 - pct}% 0 0)`;
-        div.style.left = pct + '%';
-      });
+        divider.style.left = pct + '%';
+        handle.style.left  = pct + '%';
+      }
 
-      item.addEventListener('mouseleave', () => {
-        wrap.style.clipPath = 'inset(0 100% 0 0)';
-      });
+      function getPct(e) {
+        const rect = slider.getBoundingClientRect();
+        const x = (e.touches ? e.touches[0].clientX : e.clientX) - rect.left;
+        return (x / rect.width) * 100;
+      }
 
-      /* Touch support */
-      item.addEventListener('touchmove', e => {
-        const rect = item.getBoundingClientRect();
-        const pct  = Math.max(0, Math.min(100, ((e.touches[0].clientX - rect.left) / rect.width) * 100));
-        wrap.style.clipPath = `inset(0 ${100 - pct}% 0 0)`;
-        div.style.left = pct + '%';
-      }, { passive: true });
-    });
+      slider.addEventListener('mousedown',  e => { dragging = true; setPos(getPct(e)); });
+      window.addEventListener('mousemove',  e => { if (dragging) setPos(getPct(e)); });
+      window.addEventListener('mouseup',    () => { dragging = false; });
+      slider.addEventListener('touchstart', e => setPos(getPct(e)), { passive: true });
+      slider.addEventListener('touchmove',  e => setPos(getPct(e)), { passive: true });
+
+      setPos(50);
+
+      /* Troca de foto pelas miniaturas */
+      document.querySelectorAll('.thumb').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelector('.thumb.is-active')?.classList.remove('is-active');
+          btn.classList.add('is-active');
+          const src = btn.dataset.img;
+          afterImg.src  = src;
+          beforeImg.src = src;
+          setPos(50);
+        });
+      });
+    })();
   </script>
 
 </body>
