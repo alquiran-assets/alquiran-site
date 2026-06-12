@@ -1042,14 +1042,16 @@
             </div>
           </div>
           <div class="strip-visual" style="background:#060606; overflow:hidden; padding:0; position:relative;">
-            <!-- Desktop mockup — fundo -->
+            <!-- Desktop mockup — cobre todo o fundo -->
             <img src="FOTOS/orbit-desktop.png"
                  alt="Orbit LifeOS — dashboard desktop"
-                 style="position:absolute; top:50%; left:50%; transform:translate(-44%,-50%) scale(1.08); width:82%; height:auto; object-fit:contain; display:block;">
+                 style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:top left; display:block;">
+            <!-- Gradiente lateral para fundir com o mobile -->
+            <div style="position:absolute; inset:0; background:linear-gradient(to left, #060606 10%, transparent 50%);"></div>
             <!-- Mobile mockup — frente direita -->
             <img src="FOTOS/orbit-mobile.png"
                  alt="Orbit LifeOS — mobile"
-                 style="position:absolute; bottom:0; right:6%; width:22%; height:auto; object-fit:contain; display:block;">
+                 style="position:absolute; bottom:0; right:8%; width:38%; height:95%; object-fit:contain; object-position:bottom center; display:block;">
           </div>
         </a>
 
